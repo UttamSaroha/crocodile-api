@@ -1,0 +1,31 @@
+<% e ||= false %>
+<% s ||= e %>
+<li class="post" id=<%= "post_#{post.id}" %>>
+
+  <span class="post-user-link"><strong><%= user_link post.poster %></strong>
+    <% if post.poster != post.user %>
+      <%= icon("fas", "caret-right") %>
+      <strong><%= user_link post.user %></strong>
+    <% end %>
+  </span>
+  <span class="timestamp"> <%= time_ago_in_words(post.created_at) %> ago</span>
+
+  <%= render("shared/advanced_actions", type: "post", object: post) unless s %>
+
+  <span class="post-content">
+    <% unless e %>
+      <div class="post-body"><%= auto_link post.body %></div>
+      <% unless s %>
+        <div class="post-interactions">
+          <%= post_toggleable_like_button(post)  %>
+          <small class="post-likes-count"><%= likes_count post %></small>
+        </div>
+      <% end %>
+    <% else %>
+      <%= render "post_edit_form" %>
+    <% end %>
+  </span>
+
+  <%= render("users/comments/comments", post: post) unless s %>
+
+</li>

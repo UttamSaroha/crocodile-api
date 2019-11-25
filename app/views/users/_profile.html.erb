@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="row">
+
+    <div class="col-md-3" <%= "style=color:green"  %>>
+      <h3><%= @user.full_name %></h3>
+      <h4>@<%= @user.username %></h4>
+
+    </div>
+
+    <%= yield :content %>
+  </div>
+</div>

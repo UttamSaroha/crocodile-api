@@ -1,0 +1,6 @@
+
+<% content_for :content, render("shared/user_cards",
+                                collection: @user.friends,
+                                title: "FRIENDS",
+                                message_if_empty: no_friends(@user)) %>
+<%= render "profile" %>

@@ -1,0 +1,32 @@
+<div class="col-md-7 posts-container">
+  <ul class="posts">
+    <% if user_signed_in? && current_user.friends_with?(@user) || current_user == @user %>
+      <li class="post">
+        <%= form_for [@user, Post.new], class: "form-group" do |f| %>
+          <div class="form-group">
+            <% placeholder = current_user == @user ? "What's on your mind, #{@user.first_name}?" : "Write something to #{@user.first_name}." %>
+
+            <%= f.text_area :body, class: ["form-control", "post-text-area"], placeholder: placeholder %>
+          </div>
+
+
+          <div class="text-right">
+            <%= f.submit "Post", class: "btn btn-primary" %>
+          </div>
+        <% end %>
+      </li>
+    <% end %>
+    <% if @posts.any? %>
+      <%= render @posts %>
+    <% else %>
+      There are no posts in this page.
+    <% end %>
+  </ul>
+
+  <% if @posts.next_page %>
+    <div class="next_page">
+      <%= link_to_next_page %>
+    </div>
+  <% end %>
+
+</div>

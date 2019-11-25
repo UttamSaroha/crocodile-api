@@ -1,0 +1,13 @@
+<ul class="comments comments-display">
+  <% comments_count = post.comments.count %>
+  <% if comments_count > 3 %>
+    <%= content_tag :li, link_to("Load all comments (#{comments_count})", post_comments_path(post), remote: true, class: "load-comments"), style: "text-align: center;" %>
+  <% end %>
+  <%= render post.comments.last(5) %>
+</ul>
+
+<% if user_signed_in? && current_user.friends_with?(post.user) || current_user == post.user %>
+  <div class="comments">
+    <%= render "comments/comment_form", post: post %>
+  </div>
+<% end %>
